@@ -25,3 +25,13 @@ A streamlined software utility engineered to accurately compute tip amounts and 
 1. Clone the repository to your local machine:
    ```bash
    git clone [https://github.com/HJLeslye/Calculadora-Propinas.git](https://github.com/HJLeslye/Calculadora-Propinas.git)
+
+---
+
+## Contact Details
+
+> **Leslye Hernández Jiménez**
+> *Engineering in Information and Communication Technologies*
+>
+> **LinkedIn**: [View Profile](https://www.linkedin.com/in/leslye-hern%C3%A1ndez-jim%C3%A9nez-5559403a6)
+> **Email**: [hdezj.leslye@gmail.com](mailto:hdezj.leslye@gmail.com)
