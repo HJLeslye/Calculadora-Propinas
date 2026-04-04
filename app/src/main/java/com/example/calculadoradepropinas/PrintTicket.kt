@@ -15,13 +15,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+// Componente que simula la vista de un recibo impreso
+// Recibe los cálculos matemáticos como parámetros y la función de regreso (onBack)
 @Composable
 fun PrintTicket(subtotal: Double, tipAmount: Double, total: Double, onBack: () -> Unit) {
+    // Colores específicos para esta pantalla
     val BackgroundPastel = colorResource(id = R.color.background_pastel)
     val DarkBrown = colorResource(id = R.color.dark_brown)
     val White = colorResource(id = R.color.white)
     val PinkFresa = colorResource(id = R.color.pink_pastel_fresa)
 
+    // Contenedor principal que centra el ticket en la pantalla
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -30,16 +34,19 @@ fun PrintTicket(subtotal: Double, tipAmount: Double, total: Double, onBack: () -
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
+        // Tarjeta que representa el papel del recibo (con esquinas rectas para simular papel)
         Card(
             modifier = Modifier.fillMaxWidth(),
             colors = CardDefaults.cardColors(containerColor = White),
             elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
-            shape = androidx.compose.foundation.shape.AbsoluteCutCornerShape(0.dp)
+            shape = androidx.compose.foundation.shape.AbsoluteCutCornerShape(0.dp) // Esquinas cuadradas
         ) {
+            // Contenido interno del ticket
             Column(
                 modifier = Modifier.padding(20.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                // Encabezado del ticket
                 Text(
                     text = "こんにちは",
                     fontSize = 28.sp,
@@ -63,6 +70,7 @@ fun PrintTicket(subtotal: Double, tipAmount: Double, total: Double, onBack: () -
 
                 Spacer(modifier = Modifier.height(16.dp))
 
+                // Logo en miniatura dentro del ticket
                 Image(
                     painter = painterResource(id = R.drawable.helados),
                     contentDescription = null,
@@ -70,9 +78,10 @@ fun PrintTicket(subtotal: Double, tipAmount: Double, total: Double, onBack: () -
                 )
 
                 Spacer(modifier = Modifier.height(20.dp))
+                // Separador simulando una línea punteada de impresora
                 Text("------------------------------------------", color = Color.LightGray)
 
-                // Detalles del ticket
+                // Detalles del ticket utilizando el componente auxiliar "TicketLine"
                 TicketLine("SUBTOTAL", "$${String.format("%.2f", subtotal)}", DarkBrown)
                 TicketLine("PROPINA", "$${String.format("%.2f", tipAmount)}", DarkBrown)
 
@@ -80,9 +89,12 @@ fun PrintTicket(subtotal: Double, tipAmount: Double, total: Double, onBack: () -
                 HorizontalDivider(thickness = 1.dp, color = DarkBrown.copy(alpha = 0.2f))
                 Spacer(modifier = Modifier.height(12.dp))
 
+                // Línea del total destacada (con parámetro isBold = true)
                 TicketLine("TOTAL A PAGAR", "$${String.format("%.2f", total)}", PinkFresa, isBold = true)
 
                 Spacer(modifier = Modifier.height(24.dp))
+
+                // Mensaje de despedida al final del recibo
                 Text(
                     text = "¡GRACIAS POR TU VISITA!",
                     fontSize = 12.sp,
@@ -94,8 +106,9 @@ fun PrintTicket(subtotal: Double, tipAmount: Double, total: Double, onBack: () -
 
         Spacer(modifier = Modifier.height(32.dp))
 
+        // Botón para cerrar el ticket y volver a la pantalla principal
         Button(
-            onClick = onBack,
+            onClick = onBack, // Dispara la acción de reseteo definida en MainActivity
             modifier = Modifier.fillMaxWidth().height(55.dp),
             colors = ButtonDefaults.buttonColors(containerColor = DarkBrown),
             shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp)
@@ -105,12 +118,14 @@ fun PrintTicket(subtotal: Double, tipAmount: Double, total: Double, onBack: () -
     }
 }
 
+// Componente auxiliar reutilizable para estructurar cada línea de costo en el recibo (Etiqueta + Valor)
 @Composable
 fun TicketLine(label: String, value: String, colorValue: Color, isBold: Boolean = false) {
     Row(
         modifier = Modifier.fillMaxWidth().padding(vertical = 6.dp),
-        horizontalArrangement = Arrangement.SpaceBetween
+        horizontalArrangement = Arrangement.SpaceBetween // Separa la etiqueta a la izquierda y el valor a la derecha
     ) {
+        // Configuraciones dinámicas de fuente dependiendo de si es la línea de "Total" o no
         val style = if (isBold) FontWeight.Black else FontWeight.Normal
         val size = if (isBold) 20.sp else 16.sp
 
